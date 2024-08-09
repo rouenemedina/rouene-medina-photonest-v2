@@ -1,41 +1,58 @@
 import "./RegistrationForm.scss";
 import React from "react";
 import CustomTextField from "../CustomTextField/CustomTextField";
+import CustomDropDownField from "../CustomDropDownField/CustomDropDownField";
+import Buttons from "../Buttons/Buttons";
 
 const RegistrationForm: React.FC = () => {
-  const handleInputChange = () => {};
+  const inputChangeHandler = () => {};
+
+  const dropDownChangeHandler = () => {};
 
   return (
     <>
       <form className="form">
-        <section>
-          <article>
+        <section className="form__container">
+          <article className="form__form">
             <CustomTextField
               label="First Name"
               name=""
+              className=""
               placeholder="First Name"
-              changeHandler={handleInputChange}
+              changeHandler={inputChangeHandler}
             />
             <CustomTextField
               label="Last Name"
               name=""
+              className=""
               placeholder="Last Name"
-              changeHandler={handleInputChange}
+              changeHandler={inputChangeHandler}
             />
-             <CustomTextField
+            <CustomTextField
               label="Email"
               name=""
+              className=""
               placeholder="youremail@domain.ca"
-              changeHandler={handleInputChange}
+              changeHandler={inputChangeHandler}
             />
-             <CustomTextField
+            <CustomTextField
               label="Password"
               name=""
+              className=""
               placeholder="password"
-              changeHandler={handleInputChange}
+              changeHandler={inputChangeHandler}
+            />
+            <CustomDropDownField
+              label="Role"
+              name=""
+              currentValue="Please select an option..."
+              changeHandler={dropDownChangeHandler}
+              values={["Please select an option...", "Photographer", "Client"]}
             />
           </article>
-          <article></article>
+          <article className="form__btn">
+            <Buttons type="submit">Register</Buttons>
+          </article>
         </section>
       </form>
     </>

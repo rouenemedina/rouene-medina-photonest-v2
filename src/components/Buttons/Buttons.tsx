@@ -1,20 +1,26 @@
 import "./Buttons.scss";
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from "react";
 
 type ButtonProps = {
-    children: ReactNode,
-    className?: string,
-    onClick: () => void
-} 
+  type: "submit" | "reset" | "button";
+  children: ReactNode;
+  className?: string;
+  onClick?: () => void;
+};
 
-const Buttons: React.FC<ButtonProps> = ({ className, onClick, children }) => {
-    return (
-        <>
-        <button className={className} onClick={onClick}>
-            {children}
-        </button>
-        </>
-    );
+const Buttons: React.FC<ButtonProps> = ({
+  type,
+  className,
+  onClick,
+  children,
+}) => {
+  return (
+    <>
+      <button type={type} className={className} onClick={onClick}>
+        {children}
+      </button>
+    </>
+  );
 };
 
 export default Buttons;
