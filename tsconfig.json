@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES6",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "incremental": true,  
     "module": "ESNext",
     "skipLibCheck": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "noEmitOnError": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
