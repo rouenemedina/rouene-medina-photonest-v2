@@ -1,6 +1,7 @@
 import "./SignUpPage.scss";
 import { Link } from "react-router-dom";
 import React from "react";
+import RegistrationForm from "../../components/RegistrationForm/RegistrationForm";
 
 const SignUpPage: React.FC = () => {
   return (
@@ -19,7 +20,9 @@ const SignUpPage: React.FC = () => {
               </div>
             </div>
           </article>
-          <article className="registration__form"></article>
+          <article className="registration__form">
+            <RegistrationForm />
+          </article>
         </section>
       </main>
     </>
