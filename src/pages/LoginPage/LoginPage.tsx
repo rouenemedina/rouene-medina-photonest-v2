@@ -7,17 +7,17 @@ const LoginPage: React.FC = () => {
   return (
     <>
       <main className="login">
-        <section>
-          <article>
-            <h1>Welcome!</h1>
-            <div>
-              <h3>Not a member yet? </h3>
-              <Link to="">
-                <h3>Sign up here!</h3>
+        <section className="login__container">
+          <article className="login__card">
+            <h1 className="login__title">Welcome!</h1>
+            <div className="login__subcard">
+              <h3 className="login__subtitle">Not a member yet? </h3>
+              <Link to="/signup" className="login__link">
+                <h3 className="login__subtitle"> Sign up here!</h3>
               </Link>
             </div>
           </article>
-          <RegistrationForm fields={["email", "password"]} />
+          <RegistrationForm fields={["email", "password"]} formType={"login"} />
         </section>
       </main>
     </>

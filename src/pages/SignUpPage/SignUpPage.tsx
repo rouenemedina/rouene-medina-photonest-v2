@@ -14,7 +14,7 @@ const SignUpPage: React.FC = () => {
               <h1 className="registration__title">CREATE NEW ACCOUNT</h1>
               <div className="registration__subcard">
                 <h3 className="registration__subtitle">Already a member? </h3>
-                <Link to="" className="registration__link">
+                <Link to="/login" className="registration__link">
                   <h3 className="registration__subtitle">Log In</h3>
                 </Link>
               </div>
@@ -29,6 +29,7 @@ const SignUpPage: React.FC = () => {
                 "password",
                 "userType",
               ]}
+              formType={"signup"}
             />
           </article>
         </section>

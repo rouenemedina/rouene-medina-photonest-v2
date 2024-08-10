@@ -5,10 +5,11 @@ import CustomDropDownField from "../CustomDropDownField/CustomDropDownField";
 import Buttons from "../Buttons/Buttons";
 
 interface RegistrationFormProps {
-  fields: string[];
+  fields: string[],
+  formType: string
 }
 
-const RegistrationForm: React.FC<RegistrationFormProps> = ({ fields }) => {
+const RegistrationForm: React.FC<RegistrationFormProps> = ({ fields, formType }) => {
   const displayFirstName = fields.includes("firstName");
   const displayLastName = fields.includes("lastName");
   const displayEmail = fields.includes("email");
@@ -76,7 +77,11 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ fields }) => {
             )}
           </article>
           <article className="form__btn">
-            <Buttons type="submit">Register</Buttons>
+            {formType === "signup" ? (
+                <Buttons type="submit">Register</Buttons>
+            ) : formType === "login" ? (
+                <Buttons type="submit">Log In</Buttons>
+            ) : null }
           </article>
         </section>
       </form>
