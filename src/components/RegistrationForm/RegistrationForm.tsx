@@ -45,6 +45,7 @@ const RegistrationForm: React.FC = () => {
             <CustomDropDownField
               label="Role"
               name=""
+              className=""
               currentValue="Please select an option..."
               changeHandler={dropDownChangeHandler}
               values={["Please select an option...", "Photographer", "Client"]}

@@ -1,0 +1,27 @@
+.registration {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__subcontainer {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__subcard {
+    display: flex;
+  }
+
+  &__link {
+    text-decoration: none;
+  }
+}
