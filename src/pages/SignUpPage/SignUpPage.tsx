@@ -21,7 +21,15 @@ const SignUpPage: React.FC = () => {
             </div>
           </article>
           <article className="registration__form">
-            <RegistrationForm />
+            <RegistrationForm
+              fields={[
+                "firstName",
+                "lastName",
+                "email",
+                "password",
+                "userType",
+              ]}
+            />
           </article>
         </section>
       </main>
