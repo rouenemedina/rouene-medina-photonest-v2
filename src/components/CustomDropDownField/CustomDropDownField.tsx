@@ -4,7 +4,7 @@ import {
   Select,
   MenuItem,
   FormControl,
-  // InputLabel,
+  InputLabel,
   SelectChangeEvent,
 } from "@mui/material";
 
@@ -18,7 +18,7 @@ type CustomDropDownProps = {
 };
 
 const CustomDropDownField: React.FC<CustomDropDownProps> = ({
-  // label,
+  label,
   name,
   className,
   changeHandler,
@@ -28,21 +28,18 @@ const CustomDropDownField: React.FC<CustomDropDownProps> = ({
   return (
     <>
       <FormControl className={className}>
-        {/* <InputLabel htmlFor={name}>{label}</InputLabel> */}
+        {currentValue && <InputLabel>{label}</InputLabel>}
         <Select
           name={name}
           className={className}
           value={currentValue}
           onChange={changeHandler}
         >
+          <MenuItem value="" disabled>
+            <em>Please select an option...</em>
+          </MenuItem>
           {values.map((value, index) => (
-            <MenuItem
-              key={index}
-              value={value}
-              disabled={
-                index === 0 
-              }
-            >
+            <MenuItem key={index} value={value}>
               {value}
             </MenuItem>
           ))}

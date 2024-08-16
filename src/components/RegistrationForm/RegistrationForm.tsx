@@ -46,8 +46,9 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     user_last_name: "",
     user_email: "",
     user_password: "",
-    user_type: "Please select an option...",
+    user_type: ""
   });
+  const [role, setRole] = useState<string>("");
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [error, setError] = useState<AxiosError<ErrorResponse> | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
@@ -57,13 +58,12 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     console.log(`Changing ${name} to ${value}`);
-    setFormData(prevData => ({ ...prevData, [name]: value }));
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleSelectChange = (event: SelectChangeEvent<string>) => {
-    const newValue = event.target.value;
-    console.log("Selected value:", newValue);
-  }
+    setRole(event.target.value);
+  };
 
   const validateFormData = (data: UserFormData) => {
     const errors: Partial<UserFormData> = {};
@@ -112,7 +112,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
       user_last_name: "",
       user_email: "",
       user_password: "",
-      user_type: "Please select an option...",
+      user_type: ""
     });
     setFormErrors({});
     setRedirect(true);
@@ -174,13 +174,9 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 label="Role"
                 name="user_type"
                 className=""
-                currentValue="Please select an option..."
+                currentValue={role}
                 changeHandler={handleSelectChange}
-                values={[
-                  "Please select an option...",
-                  "Photographer",
-                  "Client",
-                ]}
+                values={["Photographer", "Client"]}
               />
             )}
           </article>
