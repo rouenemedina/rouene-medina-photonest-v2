@@ -7,10 +7,11 @@ type CustomTextFieldProps = {
     name: string,
     className?: string,
     placeholder: string,
-    changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void
+    changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    error?: string
 }
 
-const CustomTextField: React.FC<CustomTextFieldProps> = ({ label, name, className, placeholder, changeHandler }) => {
+const CustomTextField: React.FC<CustomTextFieldProps> = ({ label, name, className, placeholder, changeHandler, error }) => {
 
     return (
         <>
@@ -21,6 +22,7 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({ label, name, classNam
             placeholder={placeholder}
             onChange={changeHandler}
             />
+            {error && <p></p>}
         </>
     );
 };
