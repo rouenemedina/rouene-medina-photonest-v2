@@ -30,6 +30,7 @@ const SignUpPage: React.FC = () => {
                 "userType",
               ]}
               formType={"signup"}
+              successMessage={""}
             />
           </article>
         </section>

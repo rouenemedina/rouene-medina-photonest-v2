@@ -56,13 +56,14 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    console.log(`Changing ${name} to ${value}`);
+    setFormData(prevData => ({ ...prevData, [name]: value }));
   };
 
-  const dropDownChangeHandler = (event: SelectChangeEvent<string>) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const handleSelectChange = (event: SelectChangeEvent<string>) => {
+    const newValue = event.target.value;
+    console.log("Selected value:", newValue);
+  }
 
   const validateFormData = (data: UserFormData) => {
     const errors: Partial<UserFormData> = {};
@@ -131,7 +132,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             {displayFirstName && (
               <CustomTextField
                 label="First Name"
-                name=""
+                name="user_first_name"
                 className=""
                 placeholder="First Name"
                 changeHandler={handleChange}
@@ -141,7 +142,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             {displayLastName && (
               <CustomTextField
                 label="Last Name"
-                name=""
+                name="user_last_name"
                 className=""
                 placeholder="Last Name"
                 changeHandler={handleChange}
@@ -151,7 +152,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             {displayEmail && (
               <CustomTextField
                 label="Email"
-                name=""
+                name="user_email"
                 className=""
                 placeholder="youremail@domain.ca"
                 changeHandler={handleChange}
@@ -161,7 +162,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             {displayPassword && (
               <CustomTextField
                 label="Password"
-                name=""
+                name="user_password"
                 className=""
                 placeholder="password"
                 changeHandler={handleChange}
@@ -171,10 +172,10 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
             {displayUserType && (
               <CustomDropDownField
                 label="Role"
-                name=""
+                name="user_type"
                 className=""
                 currentValue="Please select an option..."
-                changeHandler={dropDownChangeHandler}
+                changeHandler={handleSelectChange}
                 values={[
                   "Please select an option...",
                   "Photographer",
