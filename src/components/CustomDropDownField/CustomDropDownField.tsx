@@ -28,8 +28,9 @@ const CustomDropDownField: React.FC<CustomDropDownProps> = ({
   return (
     <>
       <FormControl className={className}>
-        {currentValue && <InputLabel>{label}</InputLabel>}
+        <InputLabel>{label}</InputLabel>
         <Select
+          label={label}
           name={name}
           className={className}
           value={currentValue}

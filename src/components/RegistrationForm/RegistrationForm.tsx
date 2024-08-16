@@ -6,6 +6,7 @@ import CustomDropDownField from "../CustomDropDownField/CustomDropDownField";
 import Buttons from "../Buttons/Buttons";
 import { useNavigate } from "react-router-dom";
 import axios, { AxiosError } from "axios";
+import CustomPasswordField from "../CustomPasswordField/CustomPasswordField";
 
 interface RegistrationFormProps {
   fields: string[];
@@ -18,6 +19,7 @@ interface UserFormData {
   user_last_name: string;
   user_email: string;
   user_password: string;
+  user_confirm_password: string;
   user_type: string;
 }
 
@@ -39,6 +41,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
   const displayLastName = fields.includes("lastName");
   const displayEmail = fields.includes("email");
   const displayPassword = fields.includes("password");
+  const displayConfirmPassword = fields.includes("confirmPassword");
   const displayUserType = fields.includes("userType");
 
   const [formData, setFormData] = useState<UserFormData>({
@@ -46,7 +49,8 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     user_last_name: "",
     user_email: "",
     user_password: "",
-    user_type: ""
+    user_confirm_password: "",
+    user_type: "",
   });
   const [role, setRole] = useState<string>("");
   const [formErrors, setFormErrors] = useState<FormErrors>({});
@@ -74,6 +78,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     if (!data.user_email)
       errors.user_email = "Please enter your email address.";
     if (!data.user_password) errors.user_password = "Please enter a password.";
+    if (!data.user_confirm_password) errors.user_confirm_password = "";
     if (!data.user_type) errors.user_type = "Please select your role.";
     return errors;
   };
@@ -89,6 +94,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
           user_last_name: formData.user_last_name,
           user_email: formData.user_email,
           user_password: formData.user_password,
+          user_confirm_password: formData.user_confirm_password,
           user_type: formData.user_type,
         };
         const API_URL = import.meta.env.VITE_APP_API_URL;
@@ -112,7 +118,8 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
       user_last_name: "",
       user_email: "",
       user_password: "",
-      user_type: ""
+      user_confirm_password: "",
+      user_type: "",
     });
     setFormErrors({});
     setRedirect(true);
@@ -160,13 +167,25 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
               />
             )}
             {displayPassword && (
-              <CustomTextField
+              <CustomPasswordField
                 label="Password"
                 name="user_password"
                 className=""
                 placeholder="password"
                 changeHandler={handleChange}
+                helperText="Please enter a strong password."
                 error={formErrors.user_password}
+              />
+            )}
+            {displayConfirmPassword && (
+              <CustomPasswordField
+                label="Confirm Password"
+                name="user_confirm_password"
+                className=""
+                placeholder="password"
+                changeHandler={handleChange}
+                helperText="Please confirm your password."
+                error={formErrors.user_confirm_password}
               />
             )}
             {displayUserType && (

@@ -1,6 +1,10 @@
 import "./CustomTextField.scss";
 import React from "react";
-import { TextField } from "@mui/material";
+import {
+  TextField,
+  FormHelperText,
+  FormControl,
+} from "@mui/material";
 
 type CustomTextFieldProps = {
   label: string;
@@ -9,6 +13,7 @@ type CustomTextFieldProps = {
   placeholder: string;
   changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
+  helperText?: string;
 };
 
 const CustomTextField: React.FC<CustomTextFieldProps> = ({
@@ -18,17 +23,21 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
   placeholder,
   changeHandler,
   error,
+  helperText = "",
 }) => {
   return (
     <>
-      <TextField
-        label={label}
-        name={name}
-        className={className}
-        placeholder={placeholder}
-        onChange={changeHandler}
-      />
-      {error && <p></p>}
+      <FormControl error={!!error}>
+        <TextField
+          label={label}
+          name={name}
+          className={className}
+          placeholder={placeholder}
+          onChange={changeHandler}
+        />
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+        {error && <FormHelperText>{error}</FormHelperText>}
+      </FormControl>
     </>
   );
 };

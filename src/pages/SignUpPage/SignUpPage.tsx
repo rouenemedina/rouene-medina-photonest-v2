@@ -27,6 +27,7 @@ const SignUpPage: React.FC = () => {
                 "lastName",
                 "email",
                 "password",
+                "confirmPassword",
                 "userType",
               ]}
               formType={"signup"}
