@@ -20,8 +20,11 @@ interface DashboardProps {
 
 const DashboardPage: React.FC<DashboardProps> = ({ user: initialUser }) => {
   const [failedAuth, setFailedAuth] = useState<boolean>(false);
-  const [currentUser, setCurrentUser] = useState<User | null>(initialUser || null);
+  const [currentUser, setCurrentUser] = useState<User | null>(
+    initialUser || null
+  );
   const [redirect, setRedirect] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,6 +58,7 @@ const DashboardPage: React.FC<DashboardProps> = ({ user: initialUser }) => {
       setFailedAuth(true);
       navigate("/login");
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -66,6 +70,26 @@ const DashboardPage: React.FC<DashboardProps> = ({ user: initialUser }) => {
     setCurrentUser(null);
     setFailedAuth(true);
   };
+
+  const handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    event.preventDefault();
+    logout();
+    navigate("/login");
+  };
+
+  if (isLoading) {
+    return (
+      <main>
+        <section>
+          <p>Loading...</p>
+        </section>
+      </main>
+    );
+  }
+
+  //TODO: reset function logic
 
   return (
     <>
@@ -91,6 +115,11 @@ const DashboardPage: React.FC<DashboardProps> = ({ user: initialUser }) => {
             <p>Email: {currentUser?.user_email}</p>
           </article>
         </section>
+        <form onSubmit={handleSubmit}>
+          <Buttons type="submit" onClick={logout}>
+            LOG OUT
+          </Buttons>
+        </form>
       </main>
       <Footer />
     </>
