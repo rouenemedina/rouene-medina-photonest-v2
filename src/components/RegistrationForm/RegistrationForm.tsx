@@ -71,15 +71,24 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
   const validateFormData = (data: UserFormData) => {
     const errors: Partial<UserFormData> = {};
-    if (!data.user_first_name)
+    if (!data.user_first_name) {
       errors.user_first_name = "Please enter your first name.";
-    if (!data.user_last_name)
+    }
+    if (!data.user_last_name) {
       errors.user_last_name = "Please enter your last name.";
-    if (!data.user_email)
+    }
+    if (!data.user_email) {
       errors.user_email = "Please enter your email address.";
-    if (!data.user_password) errors.user_password = "Please enter a password.";
-    if (!data.user_confirm_password) errors.user_confirm_password = "";
-    if (!data.user_type) errors.user_type = "Please select your role.";
+    }
+    if (!data.user_password) {
+      errors.user_password = "Please enter a password.";
+    }
+    if (!data.user_confirm_password) {
+      errors.user_confirm_password = "Passwords does not match.";
+    } 
+    if (!data.user_type) {
+      errors.user_type = "Please select your role.";
+    }
     return errors;
   };
 
@@ -87,6 +96,9 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     event.preventDefault();
 
     const errorOutput: Partial<UserFormData> = validateFormData(formData);
+    setFormErrors(errorOutput);
+    console.log(formErrors.user_first_name);
+
     if (Object.keys(errorOutput).length === 0) {
       try {
         const updatedFormData = {
@@ -130,7 +142,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
       navigate("/login");
     }
   }, [redirect, navigate]);
-
   return (
     <>
       <form className="form" onSubmit={handleSubmit}>
@@ -172,6 +183,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 name="user_password"
                 className=""
                 placeholder="password"
+                type="password"
                 changeHandler={handleChange}
                 helperText="Please enter a strong password."
                 error={formErrors.user_password}
@@ -183,6 +195,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 name="user_confirm_password"
                 className=""
                 placeholder="password"
+                type="retypePassword"
                 changeHandler={handleChange}
                 helperText="Please confirm your password."
                 error={formErrors.user_confirm_password}
@@ -196,6 +209,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 currentValue={role}
                 changeHandler={handleSelectChange}
                 values={["Photographer", "Client"]}
+                error={formErrors.user_type}
               />
             )}
           </article>

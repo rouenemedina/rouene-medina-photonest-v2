@@ -6,6 +6,7 @@ import {
   FormControl,
   InputLabel,
   SelectChangeEvent,
+  FormHelperText,
 } from "@mui/material";
 
 type CustomDropDownProps = {
@@ -15,6 +16,8 @@ type CustomDropDownProps = {
   changeHandler: (event: SelectChangeEvent<string>) => void;
   values: string[];
   currentValue: string;
+  helperText?: string;
+  error?: string;
 };
 
 const CustomDropDownField: React.FC<CustomDropDownProps> = ({
@@ -24,10 +27,12 @@ const CustomDropDownField: React.FC<CustomDropDownProps> = ({
   changeHandler,
   values,
   currentValue,
+  helperText,
+  error,
 }) => {
   return (
     <>
-      <FormControl className={className}>
+      <FormControl error={!!error} className={className}>
         <InputLabel>{label}</InputLabel>
         <Select
           label={label}
@@ -45,6 +50,8 @@ const CustomDropDownField: React.FC<CustomDropDownProps> = ({
             </MenuItem>
           ))}
         </Select>
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+        {error && <FormHelperText>{error}</FormHelperText>}
       </FormControl>
     </>
   );
