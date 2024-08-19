@@ -1,12 +1,59 @@
 import "./Navigation.scss";
-import React from 'react';
+import React from "react";
+import { NavLink } from "react-router-dom";
 
-const Navigation: React.FC = () => {
-    return (
-        <>
-            
-        </>
-    );
+interface NavigationProps {
+  isClicked: boolean;
+  closeMenu: () => void;
+}
+
+const Navigation: React.FC<NavigationProps> = ({ isClicked, closeMenu }) => {
+  const navigationClasses = `nav__menu ${isClicked ? "--open" : ""}`;
+
+  return (
+    <>
+      <main className={navigationClasses}>
+        <section>
+          <NavLink
+            to=""
+            className={({ isActive }) =>
+              isActive ? "nav__link nav__link--active" : "nav__link"
+            }
+            onClick={closeMenu}
+          >
+            <h4>HOME</h4>
+          </NavLink>
+          <NavLink
+            to=""
+            className={({ isActive }) =>
+              isActive ? "nav__link nav__link--active" : "nav__link"
+            }
+            onClick={closeMenu}
+          >
+            <h4>PHOTOGRAPHERS</h4>
+          </NavLink>
+          <NavLink
+            to=""
+            className={({ isActive }) =>
+              isActive ? "nav__link nav__link--active" : "nav__link"
+            }
+            onClick={closeMenu}
+          >
+            <h4>PORTFOLIO</h4>
+          </NavLink>
+          <NavLink
+            to=""
+            className={({ isActive }) =>
+              isActive ? "nav__link nav__link--active" : "nav__link"
+            }
+            onClick={closeMenu}
+          >
+            <h4>CONTACT US</h4>
+          </NavLink>
+        </section>
+      </main>
+    </>
+  );
 };
 
 export default Navigation;
