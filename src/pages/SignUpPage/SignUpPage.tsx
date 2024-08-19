@@ -1,8 +1,9 @@
 import "./SignUpPage.scss";
 import { Link } from "react-router-dom";
 import React from "react";
-import RegistrationForm from "../../components/RegistrationForm/RegistrationForm";
+import RegistrationForm from "../../components/FormRegistration/FormRegistration";
 
+//TODO: Success Message
 const SignUpPage: React.FC = () => {
   return (
     <>

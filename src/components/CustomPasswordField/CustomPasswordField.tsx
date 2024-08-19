@@ -31,7 +31,6 @@ const CustomPasswordField: React.FC<CustomPasswordFieldProps> = ({
 }) => {
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
-//   const [retypePassword, setRetypePassword] = useState<string>("");
   const [passwordMatchError, setPasswordMatchError] = useState<string | null>(
     null
   );

@@ -1,4 +1,4 @@
-import "./RegistrationForm.scss";
+import "./FormRegistration.scss";
 import React, { useEffect, useState } from "react";
 import { SelectChangeEvent } from "@mui/material";
 import CustomTextField from "../CustomTextField/CustomTextField";
@@ -59,7 +59,13 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
   const [redirect, setRedirect] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    if (redirect) {
+      navigate("/login");
+    }
+  }, [redirect, navigate]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
     console.log(`Changing ${name} to ${value}`);
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -85,7 +91,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     }
     if (!data.user_confirm_password) {
       errors.user_confirm_password = "Passwords does not match.";
-    } 
+    }
     if (!data.user_type) {
       errors.user_type = "Please select your role.";
     }
@@ -97,7 +103,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
     const errorOutput: Partial<UserFormData> = validateFormData(formData);
     setFormErrors(errorOutput);
-    console.log(formErrors.user_first_name);
 
     if (Object.keys(errorOutput).length === 0) {
       try {
@@ -137,11 +142,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
     setRedirect(true);
   };
 
-  useEffect(() => {
-    if (redirect) {
-      navigate("/login");
-    }
-  }, [redirect, navigate]);
   return (
     <>
       <form className="form" onSubmit={handleSubmit}>

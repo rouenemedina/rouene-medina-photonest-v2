@@ -1,8 +1,9 @@
 import "./LoginPage.scss";
 import React from "react";
 import { Link } from "react-router-dom";
-import RegistrationForm from "../../components/RegistrationForm/RegistrationForm";
+import RegistrationForm from "../../components/FormRegistration/FormRegistration";
 
+//TODO: Success Message
 const LoginPage: React.FC = () => {
   return (
     <>
@@ -17,7 +18,11 @@ const LoginPage: React.FC = () => {
               </Link>
             </div>
           </article>
-          <RegistrationForm fields={["email", "password"]} formType={"login"} />
+          <RegistrationForm
+            fields={["email", "password"]}
+            formType={"login"}
+            successMessage={""}
+          />
         </section>
       </main>
     </>

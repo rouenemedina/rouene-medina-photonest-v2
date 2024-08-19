@@ -1,19 +1,19 @@
 import "./CustomTextField.scss";
 import React from "react";
-import {
-  TextField,
-  FormHelperText,
-  FormControl,
-} from "@mui/material";
+import { TextField, FormHelperText, FormControl } from "@mui/material";
 
 type CustomTextFieldProps = {
   label: string;
   name: string;
   className?: string;
   placeholder: string;
-  changeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  changeHandler: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   error?: string;
   helperText?: string;
+  multiline?: boolean;
+  rows?: number;
 };
 
 const CustomTextField: React.FC<CustomTextFieldProps> = ({
@@ -24,6 +24,8 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
   changeHandler,
   error,
   helperText = "",
+  multiline = false,
+  rows = 4,
 }) => {
   return (
     <>
@@ -34,6 +36,9 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
           className={className}
           placeholder={placeholder}
           onChange={changeHandler}
+          helperText={helperText || error}
+          multiline={multiline}
+          rows={multiline ? rows : undefined}
         />
         {helperText && <FormHelperText>{helperText}</FormHelperText>}
         {error && <FormHelperText>{error}</FormHelperText>}
