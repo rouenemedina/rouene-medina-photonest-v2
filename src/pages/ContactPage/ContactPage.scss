@@ -1,0 +1,69 @@
+@use "../../styles/partials/globals" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+
+.contact {
+  //   display: flex;
+  //   flex-direction: column;
+
+  //   @include tablet {
+  //     flex-direction: row;
+  //   }
+
+  //   @include desktop {
+  //     flex-direction: row;
+  //   }
+
+  &__section {
+    display: flex;
+    // flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    // background-color: $background-gunmetal;
+  }
+
+  // &__container {
+  //     width: 100%;
+  //     display: flex;
+  //     flex-direction: column;
+  //     justify-content: center;
+  //     align-items: center;
+  // }
+
+  &__card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem 0.5rem 1rem;
+  }
+
+  &__title {
+    color: $primary-Timberwolf;
+  }
+
+  //   &__feature {
+  //     display: flex;
+  //     flex: 1;
+  //   }
+
+  //   &__img {
+  //     box-sizing: border-box;
+  //     width: 100%;
+  //     height: 100%;
+  //   }
+
+  //   &__message {
+  //     display: flex;
+  //     flex-direction: column;
+  //   }
+
+  //   &__success {
+  //     color: $primary-Timberwolf;
+  //   }
+
+  //   &__error {
+  //     color: $primary-Timberwolf;
+  //     background-color: $error;
+  //   }
+}

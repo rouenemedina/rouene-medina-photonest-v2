@@ -53,7 +53,9 @@ const ContactForm: React.FC<ContactFormProps> = ({
     }
   }, [redirect, navigate]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -112,13 +114,13 @@ const ContactForm: React.FC<ContactFormProps> = ({
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <article>
+      <form className="contactForm" onSubmit={handleSubmit}>
+        <article className="contactForm__container">
           {displayName && (
             <CustomTextField
               label="First and Last Name"
               name="contact_name"
-              className=""
+              className="contactForm__input"
               placeholder="Your Full Name"
               changeHandler={handleChange}
               error={formErrors.contact_name}
@@ -128,27 +130,29 @@ const ContactForm: React.FC<ContactFormProps> = ({
             <CustomTextField
               label="Email Address"
               name="contact_email"
-              className=""
+              className="contactForm__input"
               placeholder="email@domain.ca"
               changeHandler={handleChange}
               error={formErrors.contact_email}
             />
           )}
           {displayMessage && (
-            <CustomTextField 
-            label="Message"
-            name="contact_message"
-            className=""
-            placeholder="Write your message here."
-            changeHandler={handleChange}
-            error={formErrors.contact_message}
-            multiline={true}
-            rows={5}
+            <CustomTextField
+              label="Message"
+              name="contact_message"
+              className="contactForm__input"
+              placeholder="Write your message here."
+              changeHandler={handleChange}
+              error={formErrors.contact_message}
+              multiline={true}
+              rows={5}
             />
           )}
         </article>
         <article>
-          <Buttons type="submit">Submit</Buttons>
+          <Buttons className="contactForm__btn" type="submit">
+            Submit
+          </Buttons>
         </article>
         {success && <div className="">{successMessage}</div>}
         {error && <div className="">{error.response?.data.message}</div>}
