@@ -1,15 +1,18 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import LandingPage from "./pages/LandingPage/LandingPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import PortfolioPage from "./pages/PortfolioPage/PortfolioPage";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const App: React.FC = () => {
   return (
-    <>
+    <DndProvider backend={HTML5Backend}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
@@ -20,7 +23,7 @@ const App: React.FC = () => {
           <Route path="/contactus" element={<ContactPage />}></Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </DndProvider>
   );
 }
 
