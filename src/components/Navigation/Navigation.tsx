@@ -21,7 +21,7 @@ const Navigation: React.FC<NavigationProps> = ({ isClicked, closeMenu }) => {
             }
             onClick={closeMenu}
           >
-            <h4>HOME</h4>
+            <h4 className="nav__title">HOME</h4>
           </NavLink>
           <NavLink
             to=""
@@ -30,7 +30,7 @@ const Navigation: React.FC<NavigationProps> = ({ isClicked, closeMenu }) => {
             }
             onClick={closeMenu}
           >
-            <h4>PHOTOGRAPHERS</h4>
+            <h4 className="nav__title">PHOTOGRAPHERS</h4>
           </NavLink>
           <NavLink
             to=""
@@ -39,7 +39,7 @@ const Navigation: React.FC<NavigationProps> = ({ isClicked, closeMenu }) => {
             }
             onClick={closeMenu}
           >
-            <h4>PORTFOLIO</h4>
+            <h4 className="nav__title">PORTFOLIO</h4>
           </NavLink>
           <NavLink
             to=""
@@ -48,7 +48,7 @@ const Navigation: React.FC<NavigationProps> = ({ isClicked, closeMenu }) => {
             }
             onClick={closeMenu}
           >
-            <h4>CONTACT US</h4>
+            <h4 className="nav__title">CONTACT US</h4>
           </NavLink>
         </section>
       </main>
