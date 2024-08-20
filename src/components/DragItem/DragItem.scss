@@ -1,0 +1,20 @@
+@use "../../styles/partials/globals" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/typography" as *;
+
+.dragItem {
+  padding: 8px;
+  border: 1px solid black;
+  margin-bottom: 8px;
+  cursor: move;
+  opacity: 1;
+
+  &__dragging {
+    padding: 8px;
+    border: 1px solid black;
+    margin-bottom: 8px;
+    cursor: move;
+    opacity: 0.5;
+  }
+}
