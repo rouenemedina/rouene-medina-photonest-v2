@@ -4,7 +4,7 @@ import { DropTargetMonitor, useDrop } from "react-dnd";
 
 //define the expected structure of the item being dropped
 interface DropItem {
-    type: string;
+    type: any;
 }
 
 //specifies the prop 'onDrop' function which accepts an item of type 'DropItem'
@@ -14,7 +14,7 @@ interface DropZoneProps {
 
 const DropZone: React.FC<DropZoneProps> = ({ onDrop }) => {
     const [{ isOver }, drop] = useDrop<DropItem, void, { isOver: boolean }>(() => ({
-        accept: [],
+        accept: ["TEMPLATE"],
         drop: (item: DropItem) => onDrop(item),
         collect: (monitor: DropTargetMonitor) => ({
             isOver: !!monitor.isOver(),

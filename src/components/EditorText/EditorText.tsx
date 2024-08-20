@@ -1,7 +1,6 @@
-import "./Template.scss";
 import React from 'react';
 
-const Template: React.FC = () => {
+const TextEditor: React.FC = () => {
     return (
         <>
             
@@ -9,4 +8,4 @@ const Template: React.FC = () => {
     );
 };
 
-export default Template;
+export default TextEditor;
