@@ -1,5 +1,5 @@
 import "./CustomPassworField.scss";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FormControl,
   FormHelperText,
@@ -30,7 +30,9 @@ const CustomPasswordField: React.FC<CustomPasswordFieldProps> = ({
   type = "password",
 }) => {
   const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>("");
   const [passwordMatchError, setPasswordMatchError] = useState<string | null>(
     null
   );
@@ -41,18 +43,27 @@ const CustomPasswordField: React.FC<CustomPasswordFieldProps> = ({
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
+    setInputValue(value);
     changeHandler(event);
 
     if (type === "password") {
       setPassword(value);
     } else if (type === "retypePassword") {
-      if (value !== password) {
-        setPasswordMatchError("Passwords do not match.");
-      } else {
-        setPasswordMatchError(null);
-      }
+      setConfirmPassword(value);
     }
   };
+
+  useEffect(() => {
+    console.log(confirmPassword);
+    console.log(password);
+    if (confirmPassword && password !== confirmPassword) {
+      setPasswordMatchError("Passwords do not match.");
+    } else {
+      setPasswordMatchError(null);
+    }
+  }, [password, confirmPassword])
+
+  const showHelperText = inputValue === "" && !passwordMatchError;
 
   return (
     <>
@@ -72,9 +83,9 @@ const CustomPasswordField: React.FC<CustomPasswordFieldProps> = ({
             ),
           }}
         />
-        {(helperText || passwordMatchError || error) && (
+        {(showHelperText || passwordMatchError || error) && (
           <FormHelperText>
-            {helperText || passwordMatchError || error}
+            {showHelperText ? helperText : passwordMatchError || error}
           </FormHelperText>
         )}
       </FormControl>

@@ -21,7 +21,7 @@ const LoginPage: React.FC = () => {
           <RegistrationForm
             fields={["email", "password"]}
             formType={"login"}
-            successMessage={""}
+            successMessage={"Welcome Home"}
           />
         </section>
       </main>

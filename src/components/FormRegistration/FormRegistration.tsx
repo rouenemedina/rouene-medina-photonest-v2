@@ -67,12 +67,13 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
-    console.log(`Changing ${name} to ${value}`);
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleSelectChange = (event: SelectChangeEvent<string>) => {
     setRole(event.target.value);
+    const { name, value } = event.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const validateFormData = (data: UserFormData) => {
@@ -90,9 +91,9 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
       errors.user_password = "Please enter a password.";
     }
     if (!data.user_confirm_password) {
-      errors.user_confirm_password = "Passwords does not match.";
+      errors.user_confirm_password = "Please enter your password.";
     }
-    if (!data.user_type) {
+    if (data.user_type === "Please select an option...") {
       errors.user_type = "Please select your role.";
     }
     return errors;
@@ -101,6 +102,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    console.log(formData);
     const errorOutput: Partial<UserFormData> = validateFormData(formData);
     setFormErrors(errorOutput);
 
@@ -201,7 +203,8 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 error={formErrors.user_confirm_password}
               />
             )}
-            {displayUserType && (
+            {
+            displayUserType && (
               <CustomDropDownField
                 label="Role"
                 name="user_type"
