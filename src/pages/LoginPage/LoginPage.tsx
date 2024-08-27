@@ -4,15 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import axios, { AxiosError } from "axios";
 import RegistrationForm from "../../components/FormRegistration/FormRegistration";
 
-interface SignupFormData {
-  user_first_name: string;
-  user_last_name: string;
-  user_email: string;
-  user_password: string;
-  user_confirm_password?: string;
-  user_type: string;
-}
-
 interface LoginFormData {
   user_email: string;
   user_password: string;
@@ -27,19 +18,7 @@ interface ErrorResponse {
   statusCode: number;
 }
 
-interface LoginFormProps {
-  fields: string[];
-  formType: string;
-  formData: SignupFormData | LoginFormData;
-  handleChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
-  errors: FormErrors;
-  successMessage: string;
-}
-
-const LoginPage: React.FC<LoginFormProps> = () => {
+const LoginPage: React.FC = () => {
   const [formData, setFormData] = useState<LoginFormData>({
     user_email: "",
     user_password: "",

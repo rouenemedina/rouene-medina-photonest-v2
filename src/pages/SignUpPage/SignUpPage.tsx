@@ -16,24 +16,8 @@ interface SignupFormData {
   user_type: string;
 }
 
-interface LoginFormData {
-  user_email: string;
-  user_password: string;
-}
-
 interface FormErrors {
   [key: string]: string;
-}
-
-interface RegistrationFormProps {
-  fields: string[];
-  formType: string;
-  formData: SignupFormData | LoginFormData;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  handleSelectChange: (event: SelectChangeEvent<string>) => void;
-  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
-  errors: FormErrors;
-  successMessage: string;
 }
 
 interface ErrorResponse {
@@ -41,7 +25,7 @@ interface ErrorResponse {
   statusCode: number;
 }
 
-const SignUpPage: React.FC<RegistrationFormProps> = () => {
+const SignUpPage: React.FC = () => {
   const [formData, setFormData] = useState<SignupFormData>({
     user_first_name: "",
     user_last_name: "",
