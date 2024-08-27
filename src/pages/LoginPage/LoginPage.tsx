@@ -1,10 +1,18 @@
 import "./LoginPage.scss";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios, { AxiosError } from "axios";
 import RegistrationForm from "../../components/FormRegistration/FormRegistration";
-import { AxiosError } from "axios";
 
-//TODO: Success Message
+interface SignupFormData {
+  user_first_name: string;
+  user_last_name: string;
+  user_email: string;
+  user_password: string;
+  user_confirm_password?: string;
+  user_type: string;
+}
+
 interface LoginFormData {
   user_email: string;
   user_password: string;
@@ -19,9 +27,19 @@ interface ErrorResponse {
   statusCode: number;
 }
 
-const API_URL = import.meta.env.VITE_APP_API_URL;
+interface LoginFormProps {
+  fields: string[];
+  formType: string;
+  formData: SignupFormData | LoginFormData;
+  handleChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  errors: FormErrors;
+  successMessage: string;
+}
 
-const LoginPage: React.FC = () => {
+const LoginPage: React.FC<LoginFormProps> = () => {
   const [formData, setFormData] = useState<LoginFormData>({
     user_email: "",
     user_password: "",
@@ -38,13 +56,52 @@ const LoginPage: React.FC = () => {
     }
   }, [redirect, navigate]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  const validateFormData = (data: LoginFormData): FormErrors => {
+    const errors: FormErrors = {};
+    if (!data.user_email) {
+      errors.user_email = "Email address is required.";
+    }
+    if (!data.user_password) {
+      errors.user_password = "Password is required.";
+    }
+    return errors;
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const errorOutput: Partial<LoginFormData> = validateFormData(formData);
+    setFormErrors(errorOutput);
+
+    if (Object.keys(errorOutput).length === 0) {
+      try {
+        const API_URL = import.meta.env.VITE_APP_API_URL;
+        const response = await axios.post(`${API_URL}/auth/login`, {
+          user_email: formData.user_email,
+          user_password: formData.user_password,
+        });
+        sessionStorage.setItem("token", response.data.token);
+        sessionStorage.setItem("photonest_user_id", response.data.user_id);
+        sessionStorage.setItem("photonest_user_type", response.data.user_type);
+        setSuccess(true);
+        setError(null);
+        navigate("/dashboard");
+      } catch (err) {
+        const axiosError = err as AxiosError<ErrorResponse>;
+        if (axiosError) {
+          setError(axiosError);
+        }
+        setSuccess(false);
+        setRedirect(true);
+      }
+    }
   };
 
   return (
@@ -69,6 +126,14 @@ const LoginPage: React.FC = () => {
             errors={formErrors}
             successMessage={"Welcome!"}
           />
+          {success && (
+            <div className="registration__message">Login successful.</div>
+          )}
+          {error && (
+            <div className="registration__message">
+              {error.response?.data.message}
+            </div>
+          )}
         </section>
       </main>
     </>

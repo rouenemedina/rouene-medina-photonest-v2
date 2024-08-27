@@ -31,7 +31,7 @@ interface RegistrationFormProps {
   handleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  handleSelectChange: (event: SelectChangeEvent<string>) => void;
+  handleSelectChange?: (event: SelectChangeEvent<string>) => void;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
   errors: FormErrors;
   successMessage: string;
@@ -112,7 +112,7 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
                 label="Role"
                 name="user_type"
                 currentValue={(formData as SignupFormData).user_type || ""}
-                changeHandler={handleSelectChange}
+                changeHandler={handleSelectChange!}
                 values={["Photographer", "Client"]}
                 error={errors.user_type}
               />
