@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios, { AxiosError } from "axios";
 import RegistrationForm from "../../components/FormRegistration/FormRegistration";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 
 interface LoginFormData {
   user_email: string;
@@ -66,12 +67,28 @@ const LoginPage: React.FC = () => {
           user_email: formData.user_email,
           user_password: formData.user_password,
         });
-        sessionStorage.setItem("token", response.data.token);
+        const token = response.data.token;
+        sessionStorage.setItem("token", token);
         sessionStorage.setItem("photonest_user_id", response.data.user_id);
         sessionStorage.setItem("photonest_user_type", response.data.user_type);
-        setSuccess(true);
-        setError(null);
-        navigate("/dashboard");
+
+        const isTokenExpired = (token: string) => {
+          const decoded = jwtDecode<JwtPayload>(token);
+          if (decoded.exp) {
+            const currentTime = Date.now() / 1000;
+            console.log(currentTime);
+            return decoded.exp < currentTime;
+          }
+        };
+
+        //TODO: test expiration
+        if (!token || isTokenExpired(token)) {
+          navigate("/login");
+        } else {
+          setSuccess(true);
+          setError(null);
+          navigate("/dashboard");
+        }
       } catch (err) {
         const axiosError = err as AxiosError<ErrorResponse>;
         if (axiosError) {
