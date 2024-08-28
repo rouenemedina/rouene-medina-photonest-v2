@@ -1,0 +1,8 @@
+.feature {
+    display: flex;
+
+    &__layout {
+        display: flex;
+        flex-direction: column;
+    }
+}

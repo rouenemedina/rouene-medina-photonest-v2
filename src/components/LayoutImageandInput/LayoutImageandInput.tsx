@@ -1,30 +1,31 @@
+import "./LayoutImageandInput.scss";
 import React, { useCallback, useEffect, useState } from "react";
 import CustomTextField from "../CustomTextField/CustomTextField";
 import CustomImageField from "../CustomImageField/CustomImageField";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
-interface HeroLayoutProps {
+interface ImageInputProps {
   //   userId: number;
   onSubmit: (submitHandler: () => void) => void;
 }
 
-interface HeroLayoutData {
-  hero_description: string;
+interface ImageInputData {
+  imageInput_description: string;
   user_id: number;
 }
 
 interface FormErrors {
-  hero_description?: string;
-  hero_image?: string;
+  imageInput_description?: string;
+  imageInput_image?: string;
 }
 
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
-const LayoutHero: React.FC<HeroLayoutProps> = ({ onSubmit }) => {
+const LayoutImageandInput: React.FC<ImageInputProps> = ({ onSubmit }) => {
   const { userId } = useParams<{ userId: string }>();
-  const [formData, setFormData] = useState<HeroLayoutData>({
-    hero_description: "",
+  const [formData, setFormData] = useState<ImageInputData>({
+    imageInput_description: "",
     user_id: parseInt(userId || "0"),
   });
   const [formErrors, setFormErrors] = useState<FormErrors>({});
@@ -52,13 +53,13 @@ const LayoutHero: React.FC<HeroLayoutProps> = ({ onSubmit }) => {
     };
   }, [formData]);
 
-  const validateFormData = (data: HeroLayoutData) => {
+  const validateFormData = (data: ImageInputData) => {
     const errors: Partial<FormErrors> = {};
-    if (!data.hero_description) {
-      errors.hero_description = "Please fill out the required fields.";
+    if (!data.imageInput_description) {
+      errors.imageInput_description = "Please fill out the required fields.";
     }
     if (!imageURL) {
-      errors.hero_image = "Please upload an image.";
+      errors.imageInput_image = "Please upload an image.";
     }
     return errors;
   };
@@ -83,14 +84,17 @@ const LayoutHero: React.FC<HeroLayoutProps> = ({ onSubmit }) => {
     }
 
     const updatedFormData = new FormData();
-    updatedFormData.append("hero_description", formData.hero_description);
+    updatedFormData.append(
+      "imageInput_description",
+      formData.imageInput_description
+    );
     updatedFormData.append("user_id", formData.user_id.toString());
     if (uploadedFile) {
       updatedFormData.append("file", uploadedFile);
     }
 
     try {
-      await axios.post(`${API_URL}/hero/upload`, updatedFormData);
+      await axios.post(`${API_URL}/imageInput/upload`, updatedFormData);
     } catch (err) {
       console.log(err);
     }
@@ -101,35 +105,33 @@ const LayoutHero: React.FC<HeroLayoutProps> = ({ onSubmit }) => {
   }, [onSubmit, formData, uploadedFile]);
 
   return (
-    <main className="hero">
-      <section className="hero__left">
-        <CustomTextField
-          label="Description"
-          name="hero_description"
-          className="hero__input"
-          placeholder="Write your description here."
-          changeHandler={handleTextChange}
-          error={formErrors.hero_description}
-          multiline={true}
-          rows={5}
-        />
-      </section>
-      <section className="hero__right">
+    <main className="imageInput">
+      <section className="imageInput__top">
         <CustomImageField
           label="Upload Image"
-          name="hero_image"
+          name="imageInput_image"
           onChange={handleFileChange}
-          error={formErrors.hero_image}
+          error={formErrors.imageInput_image}
           helperText="Select an image file."
         />
         {imageURL && (
-          <section className="hero__preview">
-            <img src={imageURL} alt="Preview" className="hero__img"></img>
+          <section className="imageInput__preview">
+            <img src={imageURL} alt="Preview" className="imageInput__img"></img>
           </section>
         )}
+      </section>
+      <section className="imageInput__bottom">
+        <CustomTextField
+          label="Description"
+          name="imageInput_description"
+          className="imageInput__input"
+          placeholder="Write your description here."
+          changeHandler={handleTextChange}
+          error={formErrors.imageInput_description}
+        />
       </section>
     </main>
   );
 };
 
-export default LayoutHero;
+export default LayoutImageandInput;

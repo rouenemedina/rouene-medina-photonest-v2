@@ -1,6 +1,7 @@
 import "./SidebarLayouts.scss";
 import React, { useCallback } from "react";
-import LayoutHero from "../LayoutHero/LayoutHero";
+import LayoutImageandText from "../LayoutImageandText/LayoutImageandText";
+import LayoutFeatureWork from "../LayoutFeatureWork/LayoutFeatureWork";
 
 interface SidebarLayoutsProps {
   onSubmit: (submitHandler: () => void) => void;
@@ -16,7 +17,8 @@ const SidebarLayouts: React.FC<SidebarLayoutsProps> = ({ onSubmit }) => {
     
   return (
     <>
-      <LayoutHero onSubmit={handleLayoutSubmit} />
+      <LayoutImageandText onSubmit={handleLayoutSubmit} />
+      <LayoutFeatureWork onSubmit={handleLayoutSubmit}/>
     </>
   );
 };
