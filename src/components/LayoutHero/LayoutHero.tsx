@@ -21,7 +21,7 @@ interface FormErrors {
 
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
-const LayoutPhotoandText: React.FC<HeroLayoutProps> = ({ onSubmit }) => {
+const LayoutHero: React.FC<HeroLayoutProps> = ({ onSubmit }) => {
   const { userId } = useParams<{ userId: string }>();
   const [formData, setFormData] = useState<HeroLayoutData>({
     hero_description: "",
@@ -132,4 +132,4 @@ const LayoutPhotoandText: React.FC<HeroLayoutProps> = ({ onSubmit }) => {
   );
 };
 
-export default LayoutPhotoandText;
+export default LayoutHero;
