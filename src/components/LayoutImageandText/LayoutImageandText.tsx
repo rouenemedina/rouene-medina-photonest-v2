@@ -121,7 +121,7 @@ const LayoutImageandText: React.FC<HeroLayoutProps> = ({ onSubmit }) => {
           name="hero_image"
           onChange={handleFileChange}
           error={formErrors.hero_image}
-          helperText="Select an image file."
+          helperText={uploadedFile ? "" : "Select an image file."}
         />
         {imageURL && (
           <section className="hero__preview">

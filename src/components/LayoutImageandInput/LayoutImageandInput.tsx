@@ -43,14 +43,13 @@ const LayoutImageandInput: React.FC<ImageInputProps> = ({ onSubmit }) => {
     };
   }, [imageURL]);
 
-  const handleTextChange = useCallback(() => {
+  const handleTextChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const { name, value } = event.target;
       setFormData({ ...formData, [name]: value });
 
       const errors = validateFormData({ ...formData, [name]: value });
       setFormErrors(errors);
-    };
   }, [formData]);
 
   const validateFormData = (data: ImageInputData) => {
@@ -112,7 +111,7 @@ const LayoutImageandInput: React.FC<ImageInputProps> = ({ onSubmit }) => {
           name="imageInput_image"
           onChange={handleFileChange}
           error={formErrors.imageInput_image}
-          helperText="Select an image file."
+          helperText={uploadedFile ? "" : "Select an image file."}
         />
         {imageURL && (
           <section className="imageInput__preview">
