@@ -59,7 +59,7 @@ const SignUpPage: React.FC = () => {
   };
 
   const validateFormData = (data: SignupFormData) => {
-    const errors: Partial<SignupFormData> = {};
+    const errors: FormErrors = {};
     if (!data.user_first_name) {
       errors.user_first_name = "Please enter your first name.";
     }

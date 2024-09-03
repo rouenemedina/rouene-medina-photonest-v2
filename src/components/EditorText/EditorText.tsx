@@ -5,6 +5,7 @@ interface TextEditorProps {
   onChange: (value: string) => void;
 }
 
+//TODO: check if I still need this 
 const TextEditor: React.FC<TextEditorProps> = ({ onChange }) => {
   const [editorValue, setEditorValue] = useState<string>("");
 

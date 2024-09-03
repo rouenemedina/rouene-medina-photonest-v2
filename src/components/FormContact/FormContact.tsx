@@ -61,7 +61,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
   };
 
   const validateFormData = (data: ContactFormData) => {
-    const errors: Partial<ContactFormData> = {};
+    const errors: FormErrors = {};
     if (!data.contact_name) {
       errors.contact_name = "Please enter your full name.";
     }

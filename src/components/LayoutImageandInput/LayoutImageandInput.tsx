@@ -53,7 +53,7 @@ const LayoutImageandInput: React.FC<ImageInputProps> = ({ onSubmit }) => {
   }, [formData]);
 
   const validateFormData = (data: ImageInputData) => {
-    const errors: Partial<FormErrors> = {};
+    const errors: FormErrors = {};
     if (!data.imageInput_description) {
       errors.imageInput_description = "Please fill out the required fields.";
     }

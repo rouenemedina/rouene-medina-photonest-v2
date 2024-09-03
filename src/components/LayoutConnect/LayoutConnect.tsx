@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LayoutContact: React.FC = () => {
+const LayoutConnect: React.FC = () => {
     return (
         <main>
             
@@ -8,4 +8,4 @@ const LayoutContact: React.FC = () => {
     );
 };
 
-export default LayoutContact;
+export default LayoutConnect;
