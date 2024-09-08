@@ -1,25 +1,30 @@
 import "./SidebarLayouts.scss";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import LayoutHero from "../LayoutHero/LayoutHero";
-import LayoutFeatureWork from "../LayoutFeatureWork/LayoutFeatureWork";
+import Buttons from "../Buttons/Buttons";
 
 interface SidebarLayoutsProps {
   onSubmit: (submitHandler: () => void) => void;
 }
 
 const SidebarLayouts: React.FC<SidebarLayoutsProps> = ({ onSubmit }) => {
-    const handleLayoutSubmit = useCallback(() => {
-        const submitHandler = () => {
-            console.log("Layout");
+  const [heroSubmitHandler, setHeroSubmitHandler] = useState<(() => void) | null>(null);
+  // const [featuredSubmitHandler, setFeaturedSubmitHandler] = useState<(() => void) | null>(null);
+  // const [aboutSubmitHandler, setAboutSubmitHandler] = useState<(() => void) | null>(null);
+  // const [connectSubmitHandler, setConnectSubmitHandler] = useState<(() => void) | null>(null);
+  // const [gallerySubmitHandler, setGallerySubmitHandler] = useState<(() => void) | null>(null);
+
+    const handleSubmitAll = useCallback(() => {
+        if (heroSubmitHandler) {
+          heroSubmitHandler();
         }
-        onSubmit(submitHandler);
     }, [onSubmit]);
     
   return (
-    <>
-      <LayoutHero onSubmit={handleLayoutSubmit} />
-      <LayoutFeatureWork onSubmit={handleLayoutSubmit}/>
-    </>
+    <main onSubmit={handleSubmitAll}>
+      <LayoutHero onSubmit={setHeroSubmitHandler} />
+      <Buttons type="submit">Save Changes</Buttons>
+    </main>
   );
 };
 

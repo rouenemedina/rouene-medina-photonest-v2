@@ -1,13 +1,21 @@
 import "./LayoutAbout.scss";
 import React from "react";
-// import CustomImageField from "../CustomImageField/CustomImageField";
-// import LayoutImageandText from "../LayoutImageandText/LayoutImageandText";
+
+interface AboutData {
+  about_name: string;
+  about_description: string;
+  user_id: number;
+}
+
+interface FormErrors {
+  about_name?: string;
+  about_description?: string;
+}
 
 const LayoutAbout: React.FC = () => {
   return (
     <main className="about">
-      {/* <CustomImageField label="" name="" onChange={} error={} helperText="" />
-      <LayoutImageandText onSubmit={} /> */}
+
     </main>
   );
 };

@@ -7,6 +7,7 @@ type CustomTextFieldProps = {
   name: string;
   className?: string;
   placeholder: string;
+  value?: {};
   changeHandler: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -21,6 +22,7 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
   name,
   className,
   placeholder,
+  value,
   changeHandler,
   error,
   helperText = "",
@@ -35,6 +37,7 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
           name={name}
           className={className}
           placeholder={placeholder}
+          value={value}
           onChange={changeHandler}
           helperText={helperText || error}
           multiline={multiline}
