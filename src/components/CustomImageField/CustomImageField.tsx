@@ -6,9 +6,10 @@ interface CustomImageFieldProps {
   label: string;
   name: string;
   className?: string;
-  onChange: (file: File | null) => void;
+  onChange: (files: File[] | File | null) => void;
   error?: string;
   helperText?: string;
+  multiple?: boolean;
 }
 
 const CustomImageField: React.FC<CustomImageFieldProps> = ({
@@ -18,10 +19,20 @@ const CustomImageField: React.FC<CustomImageFieldProps> = ({
   onChange,
   error,
   helperText = "",
+  multiple = false,
 }) => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files ? event.target.files[0] : null;
-    onChange(file);
+    if (event.target.files) {
+      if (multiple) {
+        const filesArray = Array.from(event.target.files);
+        onChange(filesArray);
+      } else {
+        const file = event.target.files[0] || null;
+        onChange(file ? file : null);
+      }
+    } else {
+      onChange(null);
+    }
   };
 
   return (
@@ -32,6 +43,7 @@ const CustomImageField: React.FC<CustomImageFieldProps> = ({
           type="file"
           accept="image/*"
           onChange={handleFileChange}
+          multiple={multiple}
         />
         <label htmlFor={name} className={className}>
           {label}
