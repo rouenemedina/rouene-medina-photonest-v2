@@ -1,7 +1,8 @@
 import "./LayoutAbout.scss";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CustomTextField from "../CustomTextField/CustomTextField";
+import axios from "axios";
 
 interface AboutData {
   about_name: string;
@@ -55,6 +56,60 @@ const LayoutAbout: React.FC<LayoutAboutProps> = ({ onSubmit }) => {
       setFormErrors(errors);
     };
   }, [formData]);
+
+  const handleFileChange = (files: File[] | File | null) => {
+    if (Array.isArray(files)) {
+      if (files.length > 0) {
+        //TODO: handle multiple files logic
+      } else {
+        setImageUrls(null);
+        setUploadedFiles(null);
+      }
+    } else if (files) {
+      const url = URL.createObjectURL(files);
+      setImageUrl(url);
+      setUploadedFile(files);
+    } else {
+      setImageUrl(null);
+      setUploadedFile(null);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      //Cleanup
+      if (imageUrls) {
+        URL.revokeObjectURL(imageUrls);
+      }
+    };
+  }, [imageUrls]);
+
+  const handleSubmit = useCallback(async () => {
+    const errors = validateFormData(formData);
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+    setFormErrors({});
+
+    const updatedFormData = new FormData();
+    updatedFormData.append("about_name", formData.about_name);
+    updatedFormData.append("about_description", formData.about_description);
+    updatedFormData.append("user_id", formData.user_id.toString());
+    if (uploadedFiles) {
+      updatedFormData.append("file", uploadedFiles);
+    }
+
+    try {
+      await axios.post(`${API_URL}/about/upload`, updatedFormData);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [formData, uploadedFiles]);
+
+  useEffect(() => {
+    onSubmit(handleSubmit);
+  }, [onSubmit, handleSubmit]);
 
   return (
     <main className="about">
